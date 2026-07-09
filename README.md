@@ -70,13 +70,13 @@ The frontend communicates with the backend running on `http://localhost:4000`.
 Create a `.env` file inside the frontend project:
 
 ```env
-VITE_API_BASE_URL=http://localhost:4000
+VITE_BASE_URI=http://localhost:4000
 ```
 
 For production:
 
 ```env
-VITE_API_BASE_URL=https://my-ecommerce-eta-ruby.vercel.app
+VITE_BASE_URI=https://my-ecommerce-eta-ruby.vercel.app
 ```
 
 ### Backend
