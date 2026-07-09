@@ -40,3 +40,12 @@
 /* .read-the-docs {
   color: #888;
 } */ 
+.search-input {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .search-input {
+    max-width: 250px;
+  }
+}

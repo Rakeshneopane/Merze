@@ -110,19 +110,18 @@ For production, replace the localhost URLs with your deployed backend URL.
 - Adds products to the shopping cart
 - Updates product quantity in the cart
 - Removes products from the cart
-- Places orders using a selected address and payment method
+- Places orders with a selected delivery address (Cash on Delivery only for now)
 
 ### User Management
 - Registers new users
 - Allows users to log in using their email
-- Displays user profile and order history
+- Displays user profile and full order history
 - Adds, updates, and deletes delivery addresses
 
 ### UI & Architecture
 - Uses reusable React components
 - Implements client-side routing with React Router
 - Handles loading, empty, and error states predictably
-
 
 ---
 
@@ -201,9 +200,8 @@ For production, replace the localhost URLs with your deployed backend URL.
 - Secure JWT-based authentication with password hashing
 - Protected routes for authenticated users
 - Role-based authorization (Admin/User)
-- Order history for users
 - Payment gateway integration (Stripe / Razorpay)
-- Admin dashboard for product and order management
+- Admin dashboard access control
 
 ---
 

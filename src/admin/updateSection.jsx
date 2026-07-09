@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function UpdateSection() {
   const API = import.meta.env.VITE_BASE_URI;
@@ -18,7 +19,7 @@ export default function UpdateSection() {
       setSections(data.sections || []);
     } catch (err) {
       console.error(err);
-      alert("Failed to fetch sections");
+      toast.error("Failed to fetch sections");
     } finally {
       setLoading(false);
     }
@@ -31,7 +32,7 @@ export default function UpdateSection() {
   // Update section image
   async function updateImage(id, image) {
     try {
-      if (!image) return alert("Enter an image URL!");
+      if (!image) return toast.warn("Enter an image URL!");
 
       await fetch(`${API}/sections/${id}/image`, {
         method: "POST",
@@ -39,17 +40,17 @@ export default function UpdateSection() {
         body: JSON.stringify({ image }),
       });
 
-      alert("Image updated!");
+      toast.success("Image updated!");
       loadSections();
     } catch (err) {
       console.error(err);
-      alert("Failed to update image");
+      toast.error("Failed to update image");
     }
   }
 
   // Create a new section
   async function createSection() {
-    if (!newSectionName.trim()) return alert("Name required");
+    if (!newSectionName.trim()) return toast.warn("Name required");
 
     try {
       await fetch(`${API}/sections`, {
@@ -61,12 +62,12 @@ export default function UpdateSection() {
         }),
       });
 
-      alert("Section created!");
+      toast.success("Section created!");
       setNewSectionName("");
       loadSections();
     } catch (err) {
       console.error(err);
-      alert("Failed to create section");
+      toast.error("Failed to create section");
     }
   }
 
@@ -100,6 +101,7 @@ export default function UpdateSection() {
               <img
                 src={sec.images?.[0] || "https://placehold.co/200x200?text=No+Image"}
                 className="img-fluid rounded border mb-2"
+                style={{ width: "100%", height: "180px", objectFit: "cover" }}
               />
 
               <input

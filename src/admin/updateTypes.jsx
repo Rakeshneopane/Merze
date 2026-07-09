@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
 export default function UpdateTypes() {
   const API = import.meta.env.VITE_BASE_URI;
@@ -25,7 +26,7 @@ export default function UpdateTypes() {
       setTypes(typeData.types || []);
     } catch (err) {
       console.error(err);
-      alert("Failed to load types");
+      toast.error("Failed to load types");
     } finally {
       setLoading(false);
     }
@@ -44,18 +45,18 @@ export default function UpdateTypes() {
         body: JSON.stringify({ image }),
       });
 
-      alert("Type image updated!");
+      toast.success("Type image updated!");
       loadData();
     } catch (err) {
       console.error(err);
-      alert("Failed to update type image");
+      toast.error("Failed to update type image");
     }
   }
 
   // Create new type
   async function createType() {
-    if (!newTypeName.trim()) return alert("Name is required");
-    if (!newTypeSection) return alert("Select a section");
+    if (!newTypeName.trim()) return toast.warn("Name is required");
+    if (!newTypeSection) return toast.warn("Select a section");
 
     try {
       await fetch(`${API}/types`, {
@@ -68,13 +69,13 @@ export default function UpdateTypes() {
         }),
       });
 
-      alert("Type created!");
+      toast.success("Type created!");
       setNewTypeName("");
       setNewTypeSection("");
       loadData();
     } catch (err) {
       console.error(err);
-      alert("Create failed");
+      toast.error("Create failed");
     }
   }
 
@@ -131,6 +132,7 @@ export default function UpdateTypes() {
                     <img
                       src={t.images?.[0] || "https://placehold.co/200x200"}
                       className="img-fluid border rounded mb-2"
+                      style={{ width: "100%", height: "180px", objectFit: "cover" }}
                     />
 
                     <input

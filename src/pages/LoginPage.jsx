@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useUserContext } from "../contexts/userContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const { saveUser } = useUserContext();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState(""); 
   const [loading, setLoading] = useState(false);
@@ -33,8 +35,10 @@ export default function Login() {
 
       saveUser(data.user);
       localStorage.setItem("userId", data.user._id);
-
+      localStorage.removeItem("addressId");
+      
       setSuccess("Login successful!");
+      navigate("/");
     } catch (err) {
       setError(err.message || "Unable to login");
     } finally {

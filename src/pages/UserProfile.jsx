@@ -54,6 +54,8 @@ export default function UserProfile() {
 
       saveUser(data.user);
       localStorage.setItem("userId", data.user._id);
+      localStorage.removeItem("addressId");
+
       setSuccess("Profile created!");
     } catch (err) {
       setError("Failed to create user");

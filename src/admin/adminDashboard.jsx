@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function AdminDashboard() {
   const API = import.meta.env.VITE_BASE_URI;
@@ -15,6 +16,7 @@ export default function AdminDashboard() {
         setProducts(json.data || []);
       } catch (err) {
         console.error("Fetch failed:", err);
+        toast.error("Failed to load products");
       } finally {
         setLoading(false);
       }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function CreateProduct() {
   const { productId } = useParams();
@@ -111,9 +112,9 @@ export default function CreateProduct() {
       const json = await res.json();
 
       if (!res.ok) {
-        alert("Error: " + json.error);
+        toast.error("Error: " + json.error);
       } else {
-        alert(isEdit ? "Product updated!" : "Product created!");
+        toast.success(isEdit ? "Product updated!" : "Product created!");
       }
 
       if (!isEdit) {
@@ -130,7 +131,7 @@ export default function CreateProduct() {
         });
       }
     } catch (err) {
-      alert("Failed to submit.");
+      toast.error("Failed to submit.");
       console.error(err);
     }
 

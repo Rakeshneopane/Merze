@@ -7,9 +7,16 @@ export const useFetch = (url, initialData) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+
+     if (!url) {              // don't fetch when there's no url yet
+      setLoading(false);
+      return;
+    }
+
     let active = true;
     setLoading(true);
-
+    setError(null); 
+    
     fetch(url)
       .then((res) => res.json())
       .then((json) => {

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useProductContext } from "../contexts/productContext";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function Cart() {
   const {
@@ -28,8 +27,13 @@ export default function Cart() {
     const userId = localStorage.getItem("userId");
     const addressId = localStorage.getItem("addressId");
 
-    if (!userId || !addressId) {
-      toast.warn("⚠️ Please create a user and add an address before placing an order.");
+    if (!userId) {
+      toast.warn("⚠️ Please log in before placing an order.");
+      return;
+    }
+
+    if (!addressId) {
+      toast.warn("⚠️ Please select a delivery address before placing an order.");
       return;
     }
 
@@ -92,7 +96,6 @@ export default function Cart() {
 
   return (
   <div className="container py-3">
-    <ToastContainer position="top-center" autoClose={2000} hideProgressBar />
 
     <h3 className="mb-3 text-center">🛒 Your Cart</h3>
 

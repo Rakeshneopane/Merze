@@ -29,6 +29,11 @@ export default function Header() {
     }
   }, [location.search]);
 
+  // Close mobile nav on route change
+  useEffect(() => {
+    setShowNav(false);
+  }, [location.pathname]);
+
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchInput(term);
@@ -62,25 +67,22 @@ export default function Header() {
 
         {/* Collapsible Nav */}
         <div className={`collapse navbar-collapse ${showNav ? "show" : ""}`}>
-          <ul className="navbar-nav ms-auto w-100 align-items-md-center">
+          <ul className="navbar-nav ms-auto w-100 align-items-md-start">
 
             {/* SEARCH: full width on mobile, small on big screen */}
             <li className="nav-item w-100 my-2 my-md-0">
               <form
-                className="d-flex w-100 justify-content-md-end"
+                className="d-flex w-100 justify-content-md-end mt-2"
                 autoComplete="off"
                 onSubmit={handleSearchSubmit}
               >
                 <input
                   type="text"
-                  className="form-control me-2"
+                  className="form-control me-2 search-input"
                   placeholder="Search..."
                   value={searchInput}
                   onChange={handleSearchChange}
-                  style={{
-                    maxWidth: "250px",  // small on large screens
-                    width: "100%",      // full-width on mobile
-                  }}
+                  
                 />
                 <button className="btn btn-outline-success d-none d-md-block" type="submit">
                   Go
@@ -94,27 +96,41 @@ export default function Header() {
 
             {/* WISHLIST */}
             <li className="nav-item mx-md-2 my-1">
-              <Link to="/wish-list" className="nav-link text-center">
+              <Link to="/wish-list" className="nav-link text-start">
                 ❤️{wishCount ? `(${wishCount})` : ""}
               </Link>
             </li>
 
             {/* CART */}
             <li className="nav-item mx-md-2 my-1">
-              <Link to="/cart" className="nav-link text-center">
+              <Link to="/cart" className="nav-link text-start">
                 🛒{cartCount ? `(${cartCount})` : ""}
               </Link>
             </li>
 
-            {/* ACCOUNT */}
+            {/* ORDERS */}
+            <li className="nav-item mx-md-2 my-1">
+              <Link to="/orders" className="nav-link text-start">
+                Orders
+              </Link>
+            </li>
+
+            {/* ACCOUNT
             <li className="nav-item mx-md-2 my-1">
               <Link to="/user" className="nav-link text-center">
                 Account
               </Link>
+            </li> */}
+
+            {/* User */}
+            <li className="nav-item mx-md-2 my-1">
+              <Link to="/user" className="nav-link text-start">
+                User
+              </Link>
             </li>
 
             {/* LOGIN / LOGOUT (normal link, not button) */}
-            <li className="nav-item mx-md-2 my-1 text-center">
+            <li className="nav-item mx-md-2 my-1 text-start">
               {!user ? (
                 <Link className="nav-link" to="/login">
                   Login
@@ -126,7 +142,7 @@ export default function Header() {
                   onClick={() => {
                     logout();
                     localStorage.removeItem("userId");
-                    navigate("/login");
+                    navigate("/");
                   }}
                 >
                   Logout
@@ -136,7 +152,7 @@ export default function Header() {
 
             {/* ADMIN (normal link) */}
             <li className="nav-item mx-md-2 my-1">
-              <Link to="/admin" className="nav-link text-center">
+              <Link to="/admin" className="nav-link text-start">
                 Admin
               </Link>
             </li>

@@ -12,6 +12,7 @@ import WishList from './pages/WishList';
 import Cart from "./pages/Cart"
 import AddressManagement from './pages/AddressManagement';
 import UserProfile from './pages/UserProfile';
+import OrderHistory from "./pages/OrderHistory.jsx";
 
 import CreateProduct from './admin/createProduct';
 import AdminDashboard from './admin/adminDashboard';
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/update-sections" element={<UpdateSection />} />
                 <Route path="/update-types" element={<UpdateTypes />} />
+                <Route path="/orders" element={<OrderHistory />} />
               </Routes>
             </main>
             
