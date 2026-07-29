@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useProductContext } from "../contexts/productContext";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import ProductCard from "../components/productCard";
+import ProductCard from "../components/ProductCard";
 import {
   Heart,
   ShoppingBag,
