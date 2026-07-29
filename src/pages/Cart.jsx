@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useProductContext } from "../contexts/productContext";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
   const {
@@ -10,6 +11,8 @@ export default function Cart() {
     toggleWishList,
     clearCart
   } = useProductContext();
+
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [orderStatus, setOrderStatus] = useState(null);
@@ -24,9 +27,15 @@ export default function Cart() {
   // PLACE ORDER
   // ------------------------
   async function handlePlaceOrder() {
+    console.log("Place Order clicked");
     const userId = localStorage.getItem("userId");
     const addressId = localStorage.getItem("addressId");
 
+     console.log({
+    userId,
+    addressId,
+    cartItems,
+  });
     if (!userId) {
       toast.warn("⚠️ Please log in before placing an order.");
       return;
@@ -62,6 +71,8 @@ export default function Cart() {
         },
       };
 
+      console.log("Sending order", orderData);
+
       const response = await fetch(
         "https://my-ecommerce-eta-ruby.vercel.app/api/orders",
         {
@@ -78,6 +89,7 @@ export default function Cart() {
       clearCart();                    
       localStorage.removeItem("cartItems"); 
     } catch (err) {
+      console.error(err);
       console.error("Order error:", err);
       setOrderStatus("error");
       toast.error("❌ Failed to place order. Try again later.");
@@ -94,149 +106,442 @@ export default function Cart() {
     toast.info(`🗑️ Removed ${title} (${size})`);
   };
 
-  return (
-  <div className="container py-3">
+//   return (
+//   <div className="container py-3">
 
-    <h3 className="mb-3 text-center">🛒 Your Cart</h3>
+//     <h3 className="mb-3 text-center">🛒 Your Cart</h3>
 
-    <div className="row g-3">
+//     <div className="row g-3">
 
-      {/* LEFT SECTION — CART ITEMS */}
-      <div className={`${cartItems.length === 0 ? "col-12": "col-12 col-lg-8"}`}>
+//       {/* LEFT SECTION — CART ITEMS */}
+//       <div className={`${cartItems.length === 0 ? "col-12": "col-12 col-lg-8"}`}>
 
-        {cartItems.length === 0 ? (
-          <div className="text-center py-5 bg-light rounded shadow-sm">
-            <h5>Your cart is empty</h5>
-            <p className="text-muted">Add products to proceed</p>
-          </div>
-        ) : (
-          cartItems.map((item) => (
-            <div
-              key={`${item.productId}-${item.size}`}
-              className="card border-0 shadow-sm p-3 mb-3"
-            >
-              <div className="d-flex gap-3 align-items-center">
+//         {cartItems.length === 0 ? (
+//           <div className="text-center py-5 bg-light rounded shadow-sm">
+//             <h5>Your cart is empty</h5>
+//             <p className="text-muted">Add products to proceed</p>
+//           </div>
+//         ) : (
+//           cartItems.map((item) => (
+//             <div
+//               key={`${item.productId}-${item.size}`}
+//               className="card border-0 shadow-sm p-3 mb-3"
+//             >
+//               <div className="d-flex gap-3 align-items-center">
 
-                {/* IMAGE */}
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="rounded"
-                  style={{ width: "90px", height: "90px", objectFit: "cover" }}
-                />
+//                 {/* IMAGE */}
+//                 <img
+//                   src={item.image}
+//                   alt={item.title}
+//                   className="rounded"
+//                   style={{ width: "90px", height: "90px", objectFit: "cover" }}
+//                 />
 
-                {/* PRODUCT INFO */}
-                <div className="flex-grow-1">
-                  <h6 className="mb-1">{item.title}</h6>
-                  <p className="text-muted small mb-1">₹{item.price}</p>
+//                 {/* PRODUCT INFO */}
+//                 <div className="flex-grow-1">
+//                   <h6 className="mb-1">{item.title}</h6>
+//                   <p className="text-muted small mb-1">₹{item.price}</p>
 
-                  <p className="text-muted small mb-1">
-                    <strong>Size:</strong> {item.size}
-                  </p>
+//                   <p className="text-muted small mb-1">
+//                     <strong>Size:</strong> {item.size}
+//                   </p>
 
-                  {/* QUANTITY BUTTONS */}
-                  <div className="d-flex align-items-center mb-2">
-                    <strong className="me-2">Qty:</strong>
+//                   {/* QUANTITY BUTTONS */}
+//                   <div className="d-flex align-items-center mb-2">
+//                     <strong className="me-2">Qty:</strong>
 
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      onClick={() =>
-                        changeCartQuantity(item.productId, item.size, -1)
-                      }
-                    >
-                      -
-                    </button>
+//                     <button
+//                       className="btn btn-sm btn-outline-secondary"
+//                       onClick={() =>
+//                         changeCartQuantity(item.productId, item.size, -1)
+//                       }
+//                     >
+//                       -
+//                     </button>
 
-                    <span className="mx-2">{item.quantity}</span>
+//                     <span className="mx-2">{item.quantity}</span>
 
-                    <button
-                      className="btn btn-sm btn-outline-secondary"
-                      onClick={() =>
-                        changeCartQuantity(item.productId, item.size, 1)
-                      }
-                    >
-                      +
-                    </button>
-                  </div>
+//                     <button
+//                       className="btn btn-sm btn-outline-secondary"
+//                       onClick={() =>
+//                         changeCartQuantity(item.productId, item.size, 1)
+//                       }
+//                     >
+//                       +
+//                     </button>
+//                   </div>
 
-                  {/* ACTION BUTTONS */}
-                  <div className="d-flex gap-2">
-                    <button
-                      className="btn btn-sm btn-outline-danger w-50"
-                      onClick={() =>
-                        handleRemove(item.productId, item.size, item.title)
-                      }
-                    >
-                      Remove
-                    </button>
+//                   {/* ACTION BUTTONS */}
+//                   <div className="d-flex gap-2">
+//                     <button
+//                       className="btn btn-sm btn-outline-danger w-50"
+//                       onClick={() =>
+//                         handleRemove(item.productId, item.size, item.title)
+//                       }
+//                     >
+//                       Remove
+//                     </button>
 
-                    <button
-                      className="btn btn-sm btn-outline-warning w-50"
-                      onClick={() => {
-                        toggleWishList(item.productId);
-                        handleRemove(item.productId, item.size, item.title);
-                      }}
-                    >
-                      ❤️ Wishlist
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
+//                     <button
+//                       className="btn btn-sm btn-outline-warning w-50"
+//                       onClick={() => {
+//                         toggleWishList(item.productId);
+//                         handleRemove(item.productId, item.size, item.title);
+//                       }}
+//                     >
+//                       ❤️ Wishlist
+//                     </button>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           ))
+//         )}
+//       </div>
+
+//       {/* RIGHT SECTION — SUMMARY */}
+//       {cartItems.length > 0 && (
+//         <div className="col-12 col-lg-4">
+//           <div className="card shadow-sm p-3 border-0">
+
+//             <h5 className="text-center">Price Details</h5>
+//             <hr />
+
+//             <p className="d-flex justify-content-between mb-1">
+//               <span>Items:</span> <strong>{totalItems}</strong>
+//             </p>
+
+//             <p className="d-flex justify-content-between mb-1">
+//               <span>Total Price:</span> <strong>₹{totalPrice}</strong>
+//             </p>
+
+//             <p className="d-flex justify-content-between mb-1">
+//               <span>Delivery:</span> <span className="text-success">Free</span>
+//             </p>
+
+//             <hr />
+
+//             <h6 className="d-flex justify-content-between">
+//               <span>Total Amount:</span> <strong>₹{totalPrice}</strong>
+//             </h6>
+
+//             <button
+//               className="btn btn-primary mt-3 w-100 py-2"
+//               onClick={handlePlaceOrder}
+//               disabled={loading}
+//             >
+//               {loading ? "Placing Order..." : "Place Order"}
+//             </button>
+
+//             {orderStatus === "success" && (
+//               <p className="text-success mt-2 text-center fw-semibold">
+//                 ✅ Order placed!
+//               </p>
+//             )}
+
+//             {orderStatus === "error" && (
+//               <p className="text-danger mt-2 text-center fw-semibold">
+//                 ❌ Order failed.
+//               </p>
+//             )}
+
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   </div>
+// );
+
+
+return (
+  <div className="min-h-screen bg-white">
+    <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8">
+
+      {/* Heading */}
+
+      <div className="mb-12">
+        <p className="text-xs uppercase tracking-[0.35em] text-zinc-500">
+          Shopping Bag
+        </p>
+
+        <h1 className="mt-2 text-4xl font-light text-zinc-900">
+          Your Cart
+        </h1>
+
+        <p className="mt-3 text-zinc-500">
+          {totalItems} item{totalItems !== 1 && "s"} in your bag
+        </p>
       </div>
 
-      {/* RIGHT SECTION — SUMMARY */}
-      {cartItems.length > 0 && (
-        <div className="col-12 col-lg-4">
-          <div className="card shadow-sm p-3 border-0">
+      <div className="grid gap-10 lg:grid-cols-3">
 
-            <h5 className="text-center">Price Details</h5>
-            <hr />
+        {/* LEFT */}
 
-            <p className="d-flex justify-content-between mb-1">
-              <span>Items:</span> <strong>{totalItems}</strong>
-            </p>
+        <div className="lg:col-span-2">
 
-            <p className="d-flex justify-content-between mb-1">
-              <span>Total Price:</span> <strong>₹{totalPrice}</strong>
-            </p>
+          {cartItems.length === 0 ? (
 
-            <p className="d-flex justify-content-between mb-1">
-              <span>Delivery:</span> <span className="text-success">Free</span>
-            </p>
+            <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-zinc-300 py-28 text-center">
 
-            <hr />
+              <div className="mb-6 text-6xl">
+                🛍️
+              </div>
 
-            <h6 className="d-flex justify-content-between">
-              <span>Total Amount:</span> <strong>₹{totalPrice}</strong>
-            </h6>
+              <h2 className="text-2xl font-light">
+                Your shopping bag is empty
+              </h2>
 
-            <button
-              className="btn btn-primary mt-3 w-100 py-2"
-              onClick={handlePlaceOrder}
-              disabled={loading}
-            >
-              {loading ? "Placing Order..." : "Place Order"}
-            </button>
-
-            {orderStatus === "success" && (
-              <p className="text-success mt-2 text-center fw-semibold">
-                ✅ Order placed!
+              <p className="mt-3 max-w-md text-zinc-500">
+                Browse our latest collections and
+                discover timeless essentials for your wardrobe.
               </p>
-            )}
 
-            {orderStatus === "error" && (
-              <p className="text-danger mt-2 text-center fw-semibold">
-                ❌ Order failed.
+            </div>
+
+          ) : (
+
+            <div className="space-y-6">
+
+              {cartItems.map((item) => (
+
+                <div
+                  key={`${item.productId}-${item.size}`}
+                  className="rounded-3xl border border-zinc-200 bg-white p-6 transition-all duration-300 hover:shadow-xl"
+                >
+
+                  <div className="flex flex-col gap-6 sm:flex-row">
+
+                    {/* Image */}
+
+                    <div className="overflow-hidden rounded-2xl bg-zinc-100">
+
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="h-36 w-full object-cover sm:h-36 sm:w-32"
+                      />
+
+                    </div>
+
+                    {/* Content */}
+
+                    <div className="flex flex-1 flex-col">
+
+                      <p className="text-xs uppercase tracking-[0.25em] text-zinc-500">
+                        Premium Collection
+                      </p>
+
+                      <h3 className="mt-2 text-xl font-medium text-zinc-900">
+                        {item.title}
+                      </h3>
+
+                      <div className="mt-4 flex flex-wrap items-center gap-6 text-sm text-zinc-600">
+
+                        <span>
+                          <strong>Size:</strong> {item.size}
+                        </span>
+
+                        <span>
+                          <strong>Price:</strong> ₹{item.price}
+                        </span>
+
+                      </div>
+
+                      {/* Quantity */}
+
+                      <div className="mt-6">
+
+                        <p className="mb-3 text-xs uppercase tracking-[0.25em] text-zinc-500">
+                          Quantity
+                        </p>
+
+                        <div className="inline-flex items-center overflow-hidden rounded-xl border border-zinc-300">
+
+                          <button
+                            onClick={() =>
+                              changeCartQuantity(
+                                item.productId,
+                                item.size,
+                                -1
+                              )
+                            }
+                            className="flex h-11 w-11 items-center justify-center transition hover:bg-zinc-100"
+                          >
+                            −
+                          </button>
+
+                          <div className="flex h-11 w-14 items-center justify-center border-x border-zinc-300 font-medium">
+                            {item.quantity}
+                          </div>
+
+                          <button
+                            onClick={() =>
+                              changeCartQuantity(
+                                item.productId,
+                                item.size,
+                                1
+                              )
+                            }
+                            className="flex h-11 w-11 items-center justify-center transition hover:bg-zinc-100"
+                          >
+                            +
+                          </button>
+
+                        </div>
+
+                      </div>
+
+                      {/* Actions */}
+
+                      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+
+                        <button
+                          onClick={() =>
+                            handleRemove(
+                              item.productId,
+                              item.size,
+                              item.title
+                            )
+                          }
+                          className="rounded-xl border border-red-300 px-6 py-3 text-sm font-medium text-red-600 transition hover:bg-red-50"
+                        >
+                          Remove
+                        </button>
+
+                        <button
+                          onClick={() => {
+                            toggleWishList(item.productId);
+
+                            handleRemove(
+                              item.productId,
+                              item.size,
+                              item.title
+                            );
+                          }}
+                          className="rounded-xl border border-zinc-300 px-6 py-3 text-sm font-medium transition hover:border-black hover:bg-black hover:text-white"
+                        >
+                          Move to Wishlist
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          )}
+
+        </div>
+                {/* RIGHT SECTION */}
+
+        {cartItems.length > 0 && (
+          <div className="lg:col-span-1">
+
+            <div className="sticky top-24 rounded-3xl border border-zinc-200 bg-zinc-50 p-8">
+
+              <p className="text-xs uppercase tracking-[0.35em] text-zinc-500">
+                Order Summary
               </p>
-            )}
+
+              <h2 className="mt-2 text-3xl font-light">
+                Price Details
+              </h2>
+
+              <div className="mt-10 space-y-5">
+
+                <div className="flex items-center justify-between text-zinc-600">
+                  <span>Total Items</span>
+                  <span>{totalItems}</span>
+                </div>
+
+                <div className="flex items-center justify-between text-zinc-600">
+                  <span>Subtotal</span>
+                  <span>₹{totalPrice.toLocaleString()}</span>
+                </div>
+
+                <div className="flex items-center justify-between text-zinc-600">
+                  <span>Shipping</span>
+
+                  <span className="font-medium text-green-600">
+                    Free
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between text-zinc-600">
+                  <span>Taxes</span>
+                  <span>Included</span>
+                </div>
+
+              </div>
+
+              <div className="my-8 border-t border-zinc-300"></div>
+
+              <div className="flex items-center justify-between">
+
+                <span className="text-lg font-medium">
+                  Total
+                </span>
+
+                <span className="text-3xl font-light">
+                  ₹{totalPrice.toLocaleString()}
+                </span>
+
+              </div>
+
+              <button
+                onClick={() => navigate("/checkout")}
+                className="mt-8 w-full rounded-xl bg-black py-4 text-sm font-medium uppercase tracking-[0.2em] text-white transition-all duration-300 hover:-translate-y-1 hover:bg-zinc-900 hover:shadow-xl"
+              >
+                Proceed to Checkout
+              </button>
+
+              {orderStatus === "success" && (
+                <div className="mt-5 rounded-xl border border-green-200 bg-green-50 p-4 text-center text-green-700">
+                  ✅ Your order has been placed successfully.
+                </div>
+              )}
+
+              {orderStatus === "error" && (
+                <div className="mt-5 rounded-xl border border-red-200 bg-red-50 p-4 text-center text-red-700">
+                  ❌ Unable to place your order.
+                </div>
+              )}
+
+              <div className="mt-8 rounded-xl bg-white p-5">
+
+                <p className="text-sm font-medium">
+                  Why shop with us?
+                </p>
+
+                <ul className="mt-4 space-y-3 text-sm text-zinc-500">
+
+                  <li>✓ Premium quality products</li>
+
+                  <li>✓ Secure checkout</li>
+
+                  <li>✓ Free delivery across India</li>
+
+                  <li>✓ Easy returns</li>
+
+                </ul>
+
+              </div>
+
+            </div>
 
           </div>
-        </div>
-      )}
+        )}
+
+      </div>
+
     </div>
+
   </div>
 );
 

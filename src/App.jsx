@@ -13,6 +13,8 @@ import Cart from "./pages/Cart"
 import AddressManagement from './pages/AddressManagement';
 import UserProfile from './pages/UserProfile';
 import OrderHistory from "./pages/OrderHistory.jsx";
+import Checkout from "./pages/Checkout.jsx";
+import OrderSuccess from "./pages/OrderSuccess";
 
 import CreateProduct from './admin/createProduct';
 import AdminDashboard from './admin/adminDashboard';
@@ -21,8 +23,6 @@ import UpdateSection from "./admin/updateSection";
 import UpdateTypes from "./admin/updateTypes";
 import Login from "./pages/LoginPage";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
 import './App.css';
 import { ToastContainer } from "react-toastify";
 
@@ -31,10 +31,10 @@ function App() {
     <>
       <ProductProvider >
         <UserProvider>
-           <div className="d-flex flex-column min-vh-100 bg-success-subtle">
+           <div className="flex min-h-screen flex-col bg-white">
             <Header />
             <ToastContainer position="top-center" autoClose={2000} />
-            <main className="flex-grow-1">
+            <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Home />}> </Route>
                 <Route path="/home" element={<Home />}> </Route>
@@ -51,6 +51,8 @@ function App() {
                 <Route path="/update-sections" element={<UpdateSection />} />
                 <Route path="/update-types" element={<UpdateTypes />} />
                 <Route path="/orders" element={<OrderHistory />} />
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/order-success" element={<OrderSuccess />} />
               </Routes>
             </main>
             

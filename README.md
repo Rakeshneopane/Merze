@@ -1,47 +1,92 @@
-# Merze E-commerce Application
+# 🛍️ Merze E-commerce Application
 
-A full-stack e-commerce web application that allows users to browse products, manage a shopping cart, and place orders through a smooth and intuitive interface.
-Built to demonstrate real-world frontend–backend integration, reusable UI components, and RESTful API design.
+A modern full-stack e-commerce web application that allows users to
+browse products, manage a shopping cart, wishlist, delivery addresses,
+and place orders through a smooth and intuitive interface.
 
-Built with a React frontend, Node.js/Express backend, and MongoDB database.
+Built to demonstrate real-world frontend--backend integration, reusable
+React components, responsive UI development, and RESTful API design.
 
----
+Built with a **React** frontend, **Tailwind CSS v4**,
+**Node.js/Express** backend, and **MongoDB** database.
+
+------------------------------------------------------------------------
+
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)
+![Tailwind
+CSS](https://img.shields.io/badge/Tailwind-v4-38BDF8?logo=tailwindcss)
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb)
+![Vercel](https://img.shields.io/badge/Hosted%20on-Vercel-black?logo=vercel)
+
+------------------------------------------------------------------------
 
 ## Technologies
-- React JS
-- React Router
-- Node.js
-- Express
-- MongoDB
-- JavaScript (ES6+)
-- REST APIs
-- Bootstrap
 
----
+### Frontend
+
+-   React JS
+-   React Router
+-   Tailwind CSS v4
+-   React Context API
+-   React Toastify
+-   Lucide React
+-   JavaScript (ES6+)
+
+### Backend
+
+-   Node.js
+-   Express
+-   MongoDB
+-   REST APIs
+
+------------------------------------------------------------------------
+
+## 🏗 Architecture
+
+``` text
+React Frontend
+      │
+React Context API
+      │
+REST API Requests
+      │
+Express.js
+      │
+MongoDB Atlas
+```
+
+------------------------------------------------------------------------
 
 ## 🌐 Demo
 
-- **Frontend:** [Live Demo](https://my-ecommerce-frontend-khaki.vercel.app/)
-- **Backend API:** [Backend API](https://my-ecommerce-eta-ruby.vercel.app/)
-- 🎥 **Loom Walkthrough:** [Watch Here](https://www.loom.com/share/25adf0ed43c242d1adc0fad96495302f)
+-   **Frontend:** https://merze.vercel.app
+-   **Backend API:** https://my-ecommerce-eta-ruby.vercel.app
+-   **Loom Walkthrough:**
+    https://www.loom.com/share/25adf0ed43c242d1adc0fad96495302f
 
----
+------------------------------------------------------------------------
 
 ## Authentication
 
-This project was built before I learned authentication with JWT, Clerk, or OAuth.
+This project was built before I learned authentication with JWT, Clerk,
+or OAuth.
 
-Users can register with an email address and log in using that same email. The application does not implement secure authentication or password hashing. The primary focus of this project was building a complete e-commerce workflow, including product browsing, shopping cart management, order placement, and RESTful API integration.
+Users can register with an email address and log in using that same
+email. The application does not implement secure authentication or
+password hashing. The primary focus of this project was building a
+complete e-commerce workflow, including product browsing, shopping cart
+management, order placement, and RESTful API integration.
 
 Secure authentication is listed as a future improvement.
 
----
+------------------------------------------------------------------------
 
-## ⚡ Quick Start  
+## ⚡ Quick Start
 
 ### 1. Clone and run the backend
 
-```bash
+``` bash
 git clone https://github.com/Rakeshneopane/merze-ecommerce-backend.git
 cd merze-ecommerce-backend
 npm install
@@ -52,16 +97,17 @@ npm run dev
 
 Open a second terminal:
 
-```bash
-git clone https://github.com/Rakeshneopane/merze-ecommerce-frontend.git
-cd merze-ecommerce-frontend
+``` bash
+git clone https://github.com/Rakeshneopane/Merze.git
+cd Merze
 npm install
 npm run dev
 ```
 
-The frontend communicates with the backend running on `http://localhost:4000`.
+The frontend communicates with the backend running on
+`http://localhost:4000`.
 
----
+------------------------------------------------------------------------
 
 ## 🔐 Environment Setup
 
@@ -69,13 +115,13 @@ The frontend communicates with the backend running on `http://localhost:4000`.
 
 Create a `.env` file inside the frontend project:
 
-```env
+``` env
 VITE_BASE_URI=http://localhost:4000
 ```
 
 For production:
 
-```env
+``` env
 VITE_BASE_URI=https://my-ecommerce-eta-ruby.vercel.app
 ```
 
@@ -83,133 +129,166 @@ VITE_BASE_URI=https://my-ecommerce-eta-ruby.vercel.app
 
 Create a `.env` file inside the backend project:
 
-```env
+``` env
 PORT=4000
 NODE_ENV=development
 
 MONGODB_URI=your_mongodb_connection_string
 ```
 
-For production, replace the localhost URLs with your deployed backend URL.
+For production, replace the localhost URLs with your deployed backend
+URL.
 
-> **Note:**
+> **Note**
 >
-> - Restart the development server after updating the `.env` file.
-> - Add `.env` to `.gitignore` to avoid committing sensitive credentials.
+> -   Restart the development server after updating the `.env` file.
+> -   Add `.env` to `.gitignore` to avoid committing sensitive
+>     credentials.
 
----
+------------------------------------------------------------------------
 
 ## ✨ Features
 
 ### Product Browsing
-- Displays a list of all products
-- Filters products by section and type
-- Displays detailed product information
+
+-   Displays a list of all products
+-   Filters products by section and type
+-   Displays detailed product information
+-   Product image gallery
+-   Related product recommendations
 
 ### Cart & Orders
-- Adds products to the shopping cart
-- Updates product quantity in the cart
-- Removes products from the cart
-- Places orders with a selected delivery address (Cash on Delivery only for now)
+
+-   Adds products to the shopping cart
+-   Updates product quantity in the cart
+-   Removes products from the cart
+-   Wishlist management
+-   Places orders with a selected delivery address (Cash on Delivery
+    only for now)
+-   Order history
 
 ### User Management
-- Registers new users
-- Allows users to log in using their email
-- Displays user profile and full order history
-- Adds, updates, and deletes delivery addresses
+
+-   Registers new users
+-   Allows users to log in using their email
+-   Displays user profile and full order history
+-   Adds, updates, and deletes delivery addresses
+
+### Admin Features
+
+-   Create, update, and delete products
+-   Manage sections
+-   Manage product types
+-   Update section and type images
 
 ### UI & Architecture
-- Uses reusable React components
-- Implements client-side routing with React Router
-- Handles loading, empty, and error states predictably
 
----
+-   Reusable React components
+-   Client-side routing with React Router
+-   Responsive Tailwind CSS v4 interface
+-   Loading, empty, and error states
+-   Toast notifications
+
+------------------------------------------------------------------------
 
 ## API Reference
 
 ### Products
-- `GET /api/products` – Fetch all products
-- `GET /api/products/:productId` – Fetch product by ID
-- `POST /api/create-products` – Create product (admin)
-- `POST /api/products/:productId` – Update product
-- `DELETE /api/products/:productId` – Delete product
+
+-   `GET /api/products` -- Fetch all products
+-   `GET /api/products/:productId` -- Fetch product by ID
+-   `POST /api/create-products` -- Create product (admin)
+-   `POST /api/products/:productId` -- Update product
+-   `DELETE /api/products/:productId` -- Delete product
 
 ### Sections & Types
-- `GET /sections` – Fetch all sections
-- `POST /sections` – Create section
-- `GET /types` – Fetch all types
-- `POST /types` – Create type
+
+-   `GET /sections` -- Fetch all sections
+-   `POST /sections` -- Create section
+-   `GET /types` -- Fetch all types
+-   `POST /types` -- Create type
 
 ### Users
-- `POST /api/users` – Create a user
-- `GET /api/users` – Fetch all users
-- `GET /api/user/:id` – Fetch user by ID
-- `DELETE /api/user/:id` – Delete user
+
+-   `POST /api/users` -- Create a user
+-   `GET /api/users` -- Fetch all users
+-   `GET /api/user/:id` -- Fetch user by ID
+-   `DELETE /api/user/:id` -- Delete user
 
 ### Addresses
-- `POST /api/users/:id/addresses` – Add address
-- `POST /api/users/:userId/addresses/:addressId` – Update address
-- `DELETE /api/users/:userId/addresses/:addressId` – Delete address
+
+-   `POST /api/users/:id/addresses` -- Add address
+-   `POST /api/users/:userId/addresses/:addressId` -- Update address
+-   `DELETE /api/users/:userId/addresses/:addressId` -- Delete address
 
 ### Orders
-- `POST /api/orders` – Place an order
+
+-   `POST /api/orders` -- Place an order
 
 ### Authentication
-- `POST /api/auth/login` – Login user via email
+
+-   `POST /api/auth/login` -- Login user via email
 
 ### Sample Response (`GET /api/products`)
 
-```json
+``` json
 {
   "data": [
     {
       "_id": "6904310714d0f05c914f6527",
       "title": "Nike Air Zoom Pegasus 40",
       "price": 11999,
-      "category": "Footwear",
-      "rating": 3.7,
-      "sellerId": "seller_102",
-      "stock": 42,
-      "section": {
-        "_id": "6915ce9f5dcdf96da56681cd",
-        "name": "Men",
-        "images": [
-          "https://media.gettyimages.com/id/1141653922/photo/the-three-crew-members-of-nasas-apollo-11-lunar-landing-mission-pose-for-a-group-portrait-a.jpg?s=612x612&w=0&k=20&c=Aw7OhPFLeFfEaOjuNribMjCpSnIKMK-vmD8iSS0OawM="
-        ],
-        "__v": 0,
-        "createdAt": "2025-11-13T12:27:11.052Z",
-        "updatedAt": "2025-11-13T12:27:11.052Z"
-      }
+      "category": "Footwear"
+    }
   ]
 }
 ```
 
----
+------------------------------------------------------------------------
 
 ## 📷 Screenshots
 
 ![Homepage](./public/image1.png)
 ![Product Listing](./public/image2.png)
 ![Shopping Cart](./public/image3.png)
-![Checkout](./public/image.png)
+![Checkout](./public/image4.png)
+![Homepage](./public/image5.png)
+![Product Listing](./public/image6.png)
+![Shopping Cart](./public/image7.png)
+![Checkout](./public/image8.png)
+![Product Listing](./public/image9.png)
 
----
+------------------------------------------------------------------------
+
+## 📚 What I Learned
+
+-   React Context API
+-   RESTful API integration
+-   MongoDB data modeling
+-   Responsive UI with Tailwind CSS
+-   Full-stack application architecture
+-   CRUD operations
+-   Deployment using Vercel
+
+------------------------------------------------------------------------
 
 ## Future Improvements
 
-- Secure JWT-based authentication with password hashing
-- Protected routes for authenticated users
-- Role-based authorization (Admin/User)
-- Payment gateway integration (Stripe / Razorpay)
-- Admin dashboard access control
+-   Secure JWT-based authentication with password hashing
+-   Protected routes for authenticated users
+-   Role-based authorization (Admin/User)
+-   Payment gateway integration (Stripe / Razorpay)
+-   Product search and sorting
+-   Reviews and ratings
+-   Admin analytics dashboard
+-   Unit and integration testing
 
----
+------------------------------------------------------------------------
 
 ## 📬 Contact
 
 For bugs, feedback, or feature requests, feel free to reach out:
 
-- 📧 Email: rakeshneopane@gmail.com
-- 📧 Alternate Email: lucasneopane123@gmail.com
-- 💼 LinkedIn: https://linkedin.com/in/rakesh-neopane
-
+-   📧 Email: rakeshneopane@gmail.com
+-   📧 Alternate Email: lucasneopane123@gmail.com
+-   💼 LinkedIn: https://linkedin.com/in/rakesh-neopane
