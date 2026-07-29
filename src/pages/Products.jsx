@@ -3,7 +3,7 @@ import { useLocation, Link } from "react-router-dom";
 import { useProductContext } from "../contexts/productContext";
 import { toast } from "react-toastify";
 import { SlidersHorizontal, X } from "lucide-react";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/productCard";
 
 export default function Products() {
   const {

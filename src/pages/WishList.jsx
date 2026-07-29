@@ -1,7 +1,7 @@
 import { useProductContext } from "../contexts/productContext";
 import { toast, ToastContainer } from "react-toastify";
 import { Heart, ShoppingBag } from "lucide-react";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/productCard";
 
 export default function WishList() {
   const { products, wishlist, toggleWishList, addToCart } = useProductContext();
